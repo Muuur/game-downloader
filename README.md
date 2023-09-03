@@ -2,11 +2,11 @@
 
 ## Introduction
 
-__Games library__. It contains a database to download a varierty of _PAL_ (EUR) and
-_NTSC-U_ (USA) games for almost every game platform existing in the moment. PS4,
-switch and xbox family games will be added in the future, _NTSC-J_ (japan and
-korea) games have been deleted for storage, but will be recovered in the future
-if requested.
+__Games python library__. It contains a database to download a varierty of _PAL_ (EUR)
+and _NTSC-U_ (USA) games for almost every game platform existing in the moment.
+PS4, switch and xbox family games will be added in the future, _NTSC-J_ (japan
+and korea) games have been deleted for storage, but will be recovered in the
+future if requested.
 You can __import__ the library to create you own scripts or use the `game-downloader`
 script to automate the process. The library is free of python dependencies.
 The package is not available to MacOS because i don't know the OS paths, but you can
@@ -62,19 +62,22 @@ games
 │	├── titles.py
 │	└── version.py
 └── roms
-	├── gb.py	(GameBoy)
-	├── gbc.py	(GameBoy Color)
-	├── gba.py	(GameBoy Advance)
-	├── gcn.py	(Game Cube)
-	├── n3ds.py	(Nintendo 3DS)
-	├── nds.py	(Nintendo DS)
-	├── n64.py	(Nintendo 64)
-	├── nes.py	(Nintendo Entertainment System)
-	├── psx.py	(Play Station)
-	├── ps2.py	(Play Station 2)
-	├── snes.py	(Super Nintendo Entertainment System)
-	├── wii.py	(Nintendo wii)
-	└── wiiu.py	(Nintendo Wii U)
+    ├── gb.py	(GameBoy)
+    ├── gbc.py	(GameBoy Color)
+    ├── gba.py	(GameBoy Advance)
+    ├── gcn.py	(Game Cube)
+    ├── n3ds.py	(Nintendo 3DS)
+    ├── nds.py	(Nintendo DS)
+    ├── n64.py	(Nintendo 64)
+    ├── nes.py	(Nintendo Entertainment System)
+    ├── psx.py	(Play Station)
+    ├── ps2.py	(Play Station 2)
+    ├── sms.py	(Sega Master System)
+    ├── smd.py	(Sega Mega Drive)
+    ├── gen.py	(Sega Genesis, symlink to smd.py)
+    ├── snes.py	(Super Nintendo Entertainment System)
+    ├── wii.py	(Nintendo wii)
+    └── wiiu.py	(Nintendo Wii U)
 ```
 
 ### Classes and functions structure
@@ -83,12 +86,11 @@ games
 		1. \_\_init\_\_(name: str, baseurl: str | Link, sha: Optional[str]=None)
 		2. @classethod fromsha(cls, url: str, sha: str)
 		3. download(self, verbose: bool=False, error: bool=True, filename: Optional[str]=None) -> bool
-		4. get_cue(self, titles: GameCollection) -> Game
-		5. get_url(self) -> Link
-		6. get_name(self) -> str
-		7. get_title(self) -> str
-		8. open(self) -> self
-		9. verify(self, file: str) -> bool
+		4. get_url(self) -> Link
+		5. get_name(self) -> str
+		6. get_title(self) -> str
+		7. open(self) -> self
+		8. verify(self, file: str) -> bool
 	2. class __GameCollection__
 		1. \_\_init\_\_(self, baseurl: str | Link, games: dict[str, dict[str, str]]) -> None
 		2. \_\_getitem\_\_(self, key: str) -> tuple[str, Optional[dict[str, str]]]
@@ -112,11 +114,21 @@ games
 	1. module .baseurl: _Link_
 	2. module .titles:  _GameCollection_
 	3. module .version: _Version_
-	4. Constants for each submodule: GB, GBA, GBC, GCN, N3DS, N64, NDS, NES, PS2, PS3, PSX, SNES, WII, WIIU
+	4. Constants for each submodule: GB, GBA, GBC, GCN, GEN, GG, N3DS, N64, NDS, NES, SMD, SMS, PS2, PS3, PSX, SNES, WII, WIIU
 3. __roms.platform__ (each platform is the console)
 	1. variable .baseurl: _Link_
 	2. variable .games:   _GameCollection_
 	3. variable.version: _Version_
+
+## Version history
+
+- 0.1   Bugs fix and better names visibility
+- 0.2   Added cURL verification
+- 0.3   Stop and resume option
+- 0.3.1 '\n' when stdout is not a tty (pipes)
+- 0.4   Added PSX games
+- 1.0   Added sha, changed cURL to python-urllib, removed stop-resume option, added update option
+- 1.1   Added --update cli option, changed N3DS and PSX databases, added SMS, SMD, GEN and GG databases and fixed WII database with part 2 and 3
 
 ## How to use
 

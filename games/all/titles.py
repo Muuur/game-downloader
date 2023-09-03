@@ -1,25 +1,31 @@
 #!/usr/bin/python3
 """
-Submodule containing all games
+Submodule containing all games from GameCollection object
 """
-from ..roms import gb, gba, gbc, gcn, n3ds, n64, nds, nes, ps2, psx, snes, wii, wiiu, ps3
+from ..roms import gb, gba, gbc, gcn, n3ds, n64, nds, nes, ps2, psx, snes, wii, wiiu, ps3, sms, smd, gg
+from .. import GameCollection
+from typing import Final
 
-WII  = wii.games
-N3DS = n3ds.games
-PS3  = ps3.games
-PS2  = ps2.games
-PSX  = psx.games
-GBA  = gba.games
-WIIU = wiiu.games
-NES  = nes.games
-NDS  = nds.games
-SNES = snes.games
-GBC  = gbc.games
-GB   = gb.games
-N64  = n64.games
-GCN  = gcn.games
+GB:   Final[GameCollection] = gb.games
+GBA:  Final[GameCollection] = gba.games
+GBC:  Final[GameCollection] = gbc.games
+GCN:  Final[GameCollection] = gcn.games
+GEN:  Final[GameCollection] = smd.games
+GG:   Final[GameCollection] = gg.games
+N3DS: Final[GameCollection] = n3ds.games
+N64:  Final[GameCollection] = n64.games
+NES:  Final[GameCollection] = nes.games
+NDS:  Final[GameCollection] = nds.games
+PS2:  Final[GameCollection] = ps2.games
+PS3:  Final[GameCollection] = ps3.games
+PSX:  Final[GameCollection] = psx.games
+SMS:  Final[GameCollection] = sms.games
+SMD:  Final[GameCollection] = smd.games
+SNES: Final[GameCollection] = snes.games
+WII:  Final[GameCollection] = wii.games
+WIIU: Final[GameCollection] = wiiu.games
 
-__all__ = ["WII", "N3DS", "PS3", "PS2", "PSX", "GBA", "WIIU", "NES", "SNES", "GBC", "GB", "N64", "GCN"]
+__all__ = ["WII", "N3DS", "PS3", "PS2", "PSX", "GBA", "WIIU", "NES", "SNES", "GBC", "GB", "N64", "GCN", "SMD", "GEN", "SMS", "GG"]
 
 if __name__ != '__main__':
-    del gb, gba, gbc, gcn, n3ds, n64, nds, nes, ps2, psx, snes, wii, wiiu, ps3
+    del gb, gba, gbc, gcn, n3ds, n64, nds, nes, ps2, psx, snes, wii, wiiu, ps3, sms, smd, gg

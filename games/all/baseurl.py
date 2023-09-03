@@ -1,28 +1,27 @@
 #!/usr/bin/python3
 from .. import Link
+from typing import Final
 """
 Module containing all baseurl from database
 """
 
-WII  = Link("https://archive.org/download/wiieuroperedump")
-N3DS = Link("https://archive.org/download")
-# NDS = Link("https://archive.org/download/nds-romset")
-NDS  = Link("https://ia803406.us.archive.org/12/items/nds-romset")
-PS3  = Link("https://archive.org/details/PS3_NOINTRO_EUR_")
-PS2  = Link("https://archive.org/download/PS2_COLLECTION_PART")
-PSX  = Link("https://archive.org/download/Centuron-PSX")
-GBA  = Link("https://archive.org/download/nointro.gba")
-WIIU = Link("https://archive.org/download/wii-u-romset-iso-dump-eu-us")
-# NES = Link("https://archive.org/download/nes-roms")
-NES  = Link("https://ia804606.us.archive.org/13/items/nes-roms")
-# SNES = Link("https://archive.org/download/nointro.snes")
-SNES = Link("https://ia801707.us.archive.org/6/items/nointro.snes")
-# GBC = Link("https://archive.org/download/nintendo-game-boy-color-by-retro-raven/")
-GBC  = Link("https://ia804606.us.archive.org/35/items/nintendo-game-boy-color-by-retro-raven")
-# GB = Link("https://archive.org/download/nointro.gb")
-GB   = Link("https://ia803200.us.archive.org/23/items/nointro.gb")
-# N64 = Link()"https://archive.org/download/nointro.n64")
-N64  = Link("https://ia601908.us.archive.org/0/items/nointro.n64")
-GCN  = Link("https://archive.org/download/rr-nintendo-gamecube/europe")
+GB:   Final[Link] = Link("https://ia803200.us.archive.org/23/items/nointro.gb")
+GBA:  Final[Link] = Link("https://ia801707.us.archive.org/23/items/nointro.gba")
+GBC:  Final[Link] = Link("https://ia804606.us.archive.org/35/items/nintendo-game-boy-color-by-retro-raven")
+GCN:  Final[Link] = Link("https://archive.org/download/rr-nintendo-gamecube")
+GEN:  Final[Link] = Link("https://ia801707.us.archive.org/21/items/nointro.md")
+GG:   Final[Link] = Link("https://ia601909.us.archive.org/1/items/nointro.gg")
+N3DS: Final[Link] = Link("https://ia802909.us.archive.org/28/items/nintendo-3ds-complete-collection")
+N64:  Final[Link] = Link("https://ia601908.us.archive.org/0/items/nointro.n64")
+NDS:  Final[Link] = Link("https://ia803406.us.archive.org/12/items/nds-romset")
+NES:  Final[Link] = Link("https://ia804606.us.archive.org/13/items/nes-roms")
+SMD:  Final[Link] = GEN
+SMS:  Final[Link] = Link("https://ia803204.us.archive.org/17/items/nointro.ms-mkiii")
+SNES: Final[Link] = Link("https://ia801707.us.archive.org/6/items/nointro.snes")
+PS2:  Final[Link] = Link("https://archive.org/download/PS2_COLLECTION_PART")
+PS3:  Final[Link] = Link("https://archive.org/details/PS3_NOINTRO_EUR_")
+PSX:  Final[Link] = Link("https://archive.org/download/redump.psx")
+WII:  Final[Link] = Link("https://archive.org/download/wiieuroperedump")
+WIIU: Final[Link] = Link("https://ia902507.us.archive.org/2/items/wii-u-romset-iso-dump-eu-us")
 
-__all__ = ["WII", "N3DS", "NDS", "PS2", "PSX", "GBA", "WIIU", "NES", "SNES", "GBC", "GB", "N64", "GCN"]
+__all__ = ["WII", "N3DS", "NDS", "PS2", "PS3", "PSX", "GBA", "WIIU", "NES", "SNES", "GBC", "GB", "N64", "GCN", "SMD", "SMS", "GEN", "GG"]

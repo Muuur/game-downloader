@@ -4,7 +4,7 @@ Module containing principal module classes like Version namedtuple or Game class
 """
 from sys import stderr as _stderr, stdout as _stdout
 from os import remove as _remove, devnull as _devnull
-from re import search as _search, I as _I
+from re import search as _search, sub as _sub, I as _I
 from functools import reduce as _reduce
 from typing import Optional, Generator
 from webbrowser import open as _openurl
@@ -13,6 +13,7 @@ from urllib.request import urlopen as _urlopen
 from urllib.parse import unquote as _unquote
 from urllib.error import URLError, HTTPError
 from builtins import all as _all
+from colorama import Fore as _Fore
 
 class Version:
     """Namedtuple-like version handler"""
@@ -130,11 +131,11 @@ class Game():
                         data = stream.read(1024)
                         acc += 1024
                         gamefile.write(data)
-                        print(f"Downloading {untit}: {acc/total:.2%}", end="\r", file=out)
-                print("\n", file=out)
+                        print(f"Downloading {_Fore.LIGHTBLUE_EX}{untit}{_Fore.RESET}: {_Fore.LIGHTYELLOW_EX}{acc/total:.2%}{_Fore.RESET}", end="\r", file=out)
+                print(f"Game {_Fore.LIGHTBLUE_EX}{untit}{_Fore.RESET} download {_Fore.LIGHTGREEN_EX}finished{_Fore.RESET}: {_Fore.LIGHTYELLOW_EX}100%{_Fore.RESET}", file=out)
 
             except KeyboardInterrupt as exc:
-                print(f"\nStopped, removing {untit}", file=err)
+                print(f"\n{_Fore.RED}Stopped{_Fore.RESET}, removing {untit}", file=err)
                 _remove(untit)
                 if error:
                     raise exc
@@ -143,29 +144,21 @@ class Game():
                 if error:
                     raise exc
                 else:
-                    print(f"An internet problem was found with url={self._baseurl}/{self._name}", file=err)
+                    print(f"An internet {_Fore.RED}problem{_Fore.RESET} was found with url={_Fore.LIGHTBLUE_EX}{self.get_url()}{_Fore.RESET}", file=err)
                     return False
 
-            print(f"\nGame {untit} was succesfully downloaded, verifying checksum. . .", file=out)
+            print(f"Verifying {_Fore.LIGHTCYAN_EX}checksum{_Fore.RESET}. . .", file=out)
             if self._sha is None:
                 return True
             elif self.verify(filename or untit):
-                print("Checksum correct, exiting")
+                print(f"Checksum {_Fore.LIGHTGREEN_EX}correct{_Fore.RESET}, {_Fore.LIGHTMAGENTA_EX}exiting{_Fore.RESET}")
                 return True
 
             if error:
-                raise ValueError(f"\nChecksum is incorrect, maybe the download failed in any moment\n")
+                raise ValueError(f"\nChecksum is {_Fore.RED}incorrect{_Fore.RESET}, maybe the download {_Fore.LIGHTMAGENTA_EX}failed{_Fore.RESET} in any moment\n")
             else:
-                print(f"\nChecksum is incorrect, maybe the download failed in any moment", file=err)
+                print(f"\nChecksum is {_Fore.RED}incorrect{_Fore.RESET}, maybe the download {_Fore.LIGHTMAGENTA_EX}failed{_Fore.RESET} in any moment", file=err)
         return False
-
-    def get_cue(self, titles):
-        """Play station 1 get cue from database using bin file"""
-        if self._name[-4:] != '.bin':
-            return None
-        cuename =  self._name.replace(".bin", ".cue")
-        for i in titles.filter(cuename):
-            return i
 
 class GameCollection():
     def __init__(self, baseurl: str | Link, games: dict[str, dict[str, str]]) -> None:
@@ -212,8 +205,24 @@ class GameCollection():
     def __len__(self) -> int:
         return _reduce(lambda i, j: i + len(j), self._games.values(), 0)
 
-def check_updates() -> bool:
+def check_updates(verbose: bool=False) -> bool:
     """Function that check if updates are available in github"""
-    raise NotImplementedError("This functionality is not yet available")
+    from .all import version
+    resp = _urlopen("https://raw.githubusercontent.com/Muuur/game-downloader/main/games/all/version.py")
+    lines = map(bytes.decode, resp.readlines())
+    gitver: dict[str, Version] = eval('{ "' + ', "'.join([i.replace(": Final[Version]", '"').replace("=", ":") for i in lines if '=' in i][:-1]) + '}')
+    if verbose:
+        anydat = False
+        for i in ["WII", "N3DS", "PS2", "PSX", "GBA", "WIIU", "NES", "NDS", "SNES", "GBC", "GB", "N64", "GCN", "SMD", "SMC", "GG"]:
+            if getattr(version, i) > gitver[i]:
+                anydat = True
+                print(f"Version of {i.lower().capitalize()} database is newer than local, download it from github")
+        if gitver['SCRIPT'] > version.SCRIPT :
+            if not anydat:
+                print("All databases are in their last version")
+            print("Script version is upgradable, download it from github")
+        elif not anydat:
+            print("The package and the script are in the last version")
+    return gitver['SCRIPT'] > version.SCRIPT 
 
 __all__ = ["Version", "Link", "Game", "GameCollection", "check_updates"]
