@@ -8,9 +8,12 @@ PS4, switch and xbox family games will be added in the future, _NTSC-J_ (japan
 and korea) games have been deleted for storage, but will be recovered in the
 future if requested.
 You can __import__ the library to create you own scripts or use the `game-downloader`
-script to automate the process. The library is free of python dependencies.
-The package is not available to MacOS because i don't know the OS paths, but you can
-install it manually in you desired location.
+script to automate the process. The library only depends on colorama.
+The package is not yet available to MacOS because i don't know how to automate the
+installation, but you can install it manually in you desired location.
+
+## Python dependencies
+1. colorama
 
 ## Operating System dependencies
 1. __Python >= 3.10__ (tested with python 3.10, typing annotations not supported in 3.8)
