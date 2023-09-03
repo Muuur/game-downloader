@@ -210,10 +210,12 @@ def check_updates(verbose: bool=False) -> bool:
     from .all import version
     resp = _urlopen("https://raw.githubusercontent.com/Muuur/game-downloader/main/games/all/version.py")
     lines = map(bytes.decode, resp.readlines())
-    gitver: dict[str, Version] = eval('{ "' + ', "'.join([i.replace(": Final[Version]", '"').replace("=", ":") for i in lines if '=' in i][:-1]) + '}')
+    lines = [_sub(r': +Final\[Version\]', '"', i).replace("=", ":") for i in lines if '=' in i][:-1]
+    lines.pop([i for i, j in enumerate(lines) if 'SMD' in j][0])
+    gitver: dict[str, Version] = eval('{ "' + ', "'.join(lines) + '}')
     if verbose:
         anydat = False
-        for i in ["WII", "N3DS", "PS2", "PSX", "GBA", "WIIU", "NES", "NDS", "SNES", "GBC", "GB", "N64", "GCN", "SMD", "SMC", "GG"]:
+        for i in ["WII", "N3DS", "PS2", "PSX", "GBA", "WIIU", "NES", "NDS", "SNES", "GBC", "GB", "N64", "GCN", "GEN", "SMS", "GG"]:
             if getattr(version, i) > gitver[i]:
                 anydat = True
                 print(f"Version of {i.lower().capitalize()} database is newer than local, download it from github")
