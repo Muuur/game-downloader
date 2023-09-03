@@ -38,12 +38,14 @@ Else, the program will be installed for all users in the machine
 ### How to install - Windows with git
 ```cmd
 git clone https://github.com/Muuur/game-downloader
+cd game-downloader-1.1.0
 python install.py
 ```
 
 ### How to install - Linux
 ```bash
 git clone https://github.com/Muuur/game-downloader
+cd game-downloader-1.1.0
 python3 install.py
 ```
 
