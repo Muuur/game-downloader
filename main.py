@@ -10,7 +10,7 @@ See `game-downloader -h` for help
 from sys import argv, stderr
 from os import sep
 from sys import stdin, argv
-from urllib.error import HTTPError
+from urllib.error import HTTPError, URLError
 from colorama import Fore, init, Style
 
 try:
@@ -47,6 +47,7 @@ def main(argv: list[str]=argv) -> int:
 		    {Style.BRIGHT}-2{Style.RESET_ALL},  {Style.BRIGHT}--ps2{Style.RESET_ALL}    Play Station 2
 		    {Style.BRIGHT}-3{Style.RESET_ALL},  {Style.BRIGHT}--ps3{Style.RESET_ALL}    Play Station 3
 		    {Style.BRIGHT}-x{Style.RESET_ALL},  {Style.BRIGHT}--psx{Style.RESET_ALL}    Play Station 1
+		    {Style.BRIGHT}-p{Style.RESET_ALL},  {Style.BRIGHT}--psp{Style.RESET_ALL}    Play Station Portable
 		    {Style.BRIGHT}-s{Style.RESET_ALL},  {Style.BRIGHT}--snes{Style.RESET_ALL}   Super Nintendo Entertainment System
 		    {Style.BRIGHT}-w{Style.RESET_ALL},  {Style.BRIGHT}--wii{Style.RESET_ALL}    Nintendo wii
 		    {Style.BRIGHT}-u{Style.RESET_ALL},  {Style.BRIGHT}--wiiu{Style.RESET_ALL}   Nintendo Wii U\n
@@ -72,7 +73,7 @@ def main(argv: list[str]=argv) -> int:
     elif argv[1].lower() in ('-3', '--ps3', '--play3'):
         games = titles.PS3
     elif argv[1].lower() in ("-g", '--gb', '-gb'):
-        games = titles.G
+        games = titles.GB
     elif argv[1].lower() in ("-k", '--gbc'):
         games = titles.GBC
     elif argv[1].lower() in ("-a", '--gba'):
@@ -89,11 +90,13 @@ def main(argv: list[str]=argv) -> int:
         games = titles.N64
     elif argv[1].lower() in ('-x', '--psx', '--ps1', '--play', '--play1'):
         games = titles.PSX
+    elif argv[1].lower() in ('-p', '--psp'):
+        games = titles.PSP
     elif argv[1].lower() in ("-v", "--version"):
         print(f"{Style.BRIGHT}games{Style.RESET_ALL} version {version.SCRIPT} Muuur software - 2022")
         exit(0)
     elif argv[1].lower() == "--update":
-        check_updates()
+        check_updates(verbose=True)
         exit(0)
     else:
         stderr.write(f"Game console argument needed and not provided, try with `{argv[0][argv[0].rfind(sep) + 1:]} --help`\n")
@@ -113,6 +116,9 @@ def main(argv: list[str]=argv) -> int:
                 return 1 - int(game.download(verbose=True, error=True))
             except HTTPError:
                 stderr.write(f"URL {Fore.RED}not found{Fore.RESET} name={Fore.LIGHTCYAN_EX}{game.get_title()}{Fore.RESET}, url={Fore.LIGHTBLUE_EX}{game.get_url()}{Fore.RESET}\n")
+                return 1
+            except URLError:
+                stderr.write(f"You have no internet connection\n")
                 return 1
     return 0
 
