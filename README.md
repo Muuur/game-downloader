@@ -38,14 +38,12 @@ Else, the program will be installed for all users in the machine
 ### How to install - Windows with git
 ```cmd
 git clone https://github.com/Muuur/game-downloader
-cd game-downloader-1.1.0
 python install.py
 ```
 
 ### How to install - Linux
 ```bash
 git clone https://github.com/Muuur/game-downloader
-cd game-downloader-1.1.0
 python3 install.py
 ```
 
@@ -75,8 +73,10 @@ games
     ├── nds.py	(Nintendo DS)
     ├── n64.py	(Nintendo 64)
     ├── nes.py	(Nintendo Entertainment System)
-    ├── psx.py	(Play Station)
     ├── ps2.py	(Play Station 2)
+    ├── ps3.py	(Play Station 3)
+    ├── psx.py	(Play Station)
+    ├── psp.py	(Play Station Portable)
     ├── sms.py	(Sega Master System)
     ├── smd.py	(Sega Mega Drive)
     ├── gen.py	(Sega Genesis, symlink to smd.py)
@@ -115,11 +115,12 @@ games
 		4. \_\_le\_\_(self, other: Version) -> bool
 		5. get_number(self) -> str
 	5. def check_updates() -> bool
+	6. def fmtbytes(byte: str | int) -> int
 2. __all.baseurl__, __all.titles__, __all.version__
 	1. module .baseurl: _Link_
 	2. module .titles:  _GameCollection_
 	3. module .version: _Version_
-	4. Constants for each submodule: GB, GBA, GBC, GCN, GEN, GG, N3DS, N64, NDS, NES, SMD, SMS, PS2, PS3, PSX, SNES, WII, WIIU
+	4. Constants for each submodule: GB, GBA, GBC, GCN, GEN, GG, N3DS, N64, NDS, NES, SMD, SMS, PS2, PS3, PSX, PSP, SNES, WII, WIIU
 3. __roms.platform__ (each platform is the console)
 	1. variable .baseurl: _Link_
 	2. variable .games:   _GameCollection_
