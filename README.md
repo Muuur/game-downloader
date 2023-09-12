@@ -28,8 +28,8 @@ Else, the program will be installed for all users in the machine
 ### How to install - Windows with source code and clicking
 1. __Download__ the source code
 2. __Unzip__ the full folder
-3. __Enter__ the new folder extracted, and then in install folder
-4. __Double click__ on `windows.py`
+3. __Enter__ the new folder created
+4. __Double click__ on `install.py`
 5. If the last step don't work, then
 	1. __Rigth click__ on `install.py`
 	2. Click __Open as__
