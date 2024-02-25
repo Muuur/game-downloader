@@ -7,7 +7,7 @@ Module containing all versions from current module
 SCRIPT: Final[Version] = Version(1, 2, 0)
 
 GB:   Final[Version] = Version(1, 0, 0)
-GBA:  Final[Version] = Version(1, 0, 0)
+GBA:  Final[Version] = Version(2, 0, 0)
 GBC:  Final[Version] = Version(1, 0, 0)
 GCN:  Final[Version] = Version(2, 0, 0)
 GEN:  Final[Version] = Version(1, 0, 0)

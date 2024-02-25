@@ -6,7 +6,7 @@ Module containing all baseurl from database
 """
 
 GB:   Final[Link] = Link("https://ia803200.us.archive.org/23/items/nointro.gb")
-GBA:  Final[Link] = Link("https://ia801707.us.archive.org/23/items/nointro.gba")
+GBA:  Final[Link] = Link("https://archive.org/download/EF_Nintendo_Game_Boy_Advance/")
 GBC:  Final[Link] = Link("https://ia804606.us.archive.org/35/items/nintendo-game-boy-color-by-retro-raven")
 GCN:  Final[Link] = Link("https://ia902806.us.archive.org/25/items/zoocube/")
 GEN:  Final[Link] = Link("https://ia801707.us.archive.org/21/items/nointro.md")
@@ -19,7 +19,7 @@ SMD:  Final[Link] = GEN
 SMS:  Final[Link] = Link("https://ia803204.us.archive.org/17/items/nointro.ms-mkiii")
 SNES: Final[Link] = Link("https://ia801707.us.archive.org/6/items/nointro.snes")
 PS2:  Final[Link] = Link("https://archive.org/download/PS2_COLLECTION_PART")
-PS3:  Final[Link] = Link("https://archive.org/details/PS3_NOINTRO_EUR_")
+PS3:  Final[Link] = Link("https://archive.org/details/PS3_ALVRO_PART_")
 PSX:  Final[Link] = Link("https://archive.org/download/redump.psx")
 PSP:  Final[Link] = Link("https://archive.org/download/redump.psp")
 WII:  Final[Link] = Link("https://archive.org/download/wiieuroperedump")
